@@ -27,6 +27,16 @@ To combat this, Firefoxes come up with the idea of counting the number of studen
 
 ### System Architecture
 
+##Input(Sensors)
+Laser sensors will read the input and send to controller
+##Arduino/NodeMCU (controller)
+Controller will receive data from sensor and upload it to the server
+##Cloud Platform
+Cloud will process data from the controller, analyze it and store the analyzed data in its memory. Finally, the analyzed data will be sent to the dashboard.
+##Dashboard
+Users could easily monitor the analyzed data in graph, pie chart and power conclusion and developers could review the data collecting process from here.
+
+
 This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.
 
 [click here to return to the table of contents](#table-of-contents)
