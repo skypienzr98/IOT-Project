@@ -36,6 +36,8 @@ A. <strong><ins>LDR sensor</ins></strong>
 Laser sensor usually are combination of laser diode and photoresistor(LDR). This sensor can detect whether an object is blocking the resistors as the laser diode are always pointed towards the the LDR. 
 [KY008 Laser Diode Module + Receiver Sensor For Arduino](https://shopee.com.my/KY008-Laser-Diode-Module-Receiver-Sensor-For-Arduino-i.132528683.2035527098?sp_atk=ea2b0a91-1a0d-4c03-9f15-461c31224bae&xptdk=ea2b0a91-1a0d-4c03-9f15-461c31224bae)
 
+<img width="208" alt="Screenshot 2022-11-28 at 5 18 46 AM" src="https://user-images.githubusercontent.com/117338905/204160209-393cd333-ba73-4ad3-91a2-5c1be24c4f5f.png">
+
 B. <strong><ins>Ultrasonic sensors</ins></strong> 
 
 This sensor are not only can detect the presence of object that it is pointed to, but it can also detect the distances
