@@ -48,6 +48,8 @@ This sensor are not only can detect the presence of object that it is pointed to
 ### 4. Cloud Platform
 
 The following [video](https://youtu.be/W6meRlzatVE) shows the process on how to deploy our Django application using PythonAnywhere. This is the [link](http://skypienzr98.pythonanywhere.com/) to our application website shown in the video.
+
+
  
 ### 5. Dashboard
 
