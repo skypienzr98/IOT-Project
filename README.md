@@ -1,151 +1,243 @@
-# IoT-Project
-
-## Stage 2: IoT Student Counting System
-
+# IoTproject
+An IoT project for SKEL 4213 on waste management system using ESP 8266 with HC-SR04 ultrasonic sensor to obtain the required data.
+## IoT Waste Management System 🗑️ 
 ### Problem Statement
 
-Food court in meranti often experiences losses when students go back home during holidays. This can be in the form of inefficient work hours of the general worker(dishwasher & cleaner), or losses when the food in the food court is not bought. 
+*The availability of garbage bins spaces are always unavailable during the weekend at the college. This is beacuse of the cleaners are not working during the weekends and this leads to accumulated of rubbish that are not collected. Because of this, the residents do not know where to throw their rubbish and end up leaving it outside of the overflowing rubbish bin.* 
 
-To combat this, Firefoxes come up with the idea of counting the number of students that went to the meranti food court and store it in the cloud to be further analysed. The number, time, date and frequency is stored so that Meranti’s management can plan food distribution and staff work hours. This could also help in the planning of renovation/maintenance of the food court when it is necessary, as we know, the daytime maintenance should be performed only when the number of customers are minimal. 
+<strong><ins>Our Solution</ins></strong>
+
+An IoT application to automate the manual checking rubbish bins that is already full or not, and pass the information to a dashboard where users could locate any available bins that are available.
+
+<strong><ins>Use Case Diagram</ins></strong>
+
+<p align="center">
+<img src="Images/case_diagram.png">
+</p>
 
 ### System Architecture
 
-## Input(Sensors)
-Laser sensors will read the input and send to controller
-## Arduino/NodeMCU (controller)
-Controller will receive data from sensor and upload it to the server
-## Cloud Platform
-Cloud will process data from the controller, analyze it and store the analyzed data in its memory. Finally, the analyzed data will be sent to the dashboard.
-## Dashboard
-Users could easily monitor the analyzed data in graph, pie chart and power conclusion and developers could review the data collecting process from here.
+Below are the general overview of the system architecture for our IoT waste management system. For this project we will be using **ESP 8266** as our microcontroller device and it will be connected to **HC-SR04** ultrasonic sensor to obtain the capacity level of rubbish bins. The device will communicate using **HTTP** data protocol transmission and it will send the data to a **REST-API** implemented in **Flask** before later on hosted by **Heroku** Cloud platform and finally display the data on our simple dashboard app which we will be build using **Figma**. 
+
+<img src="Images/system_arc.png">
+
+### Hardware
+<strong><ins>ESP 8266</ins></strong>
+
+<img src="Images/esp8266.png" width="173" height="308">
+
+<strong><ins>HC-SR04</ins></strong>
+
+<img src="Images/hc_sr04.jpg" width="256" height="197">
+
+<strong><ins>Circuit Diagram</ins></strong>
+
+<img src="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2021/06/ESP8266-Ultrasonic-Sensor-Wiring-Fritzing-Diagram.png?w=738&quality=100&strip=all&ssl=1" width="318" height="258">
+
+<strong>Code Sample</strong>
+
+<details>
+  <summary>Please Click Me</summary>
+
+  ```
+//define sound velocity in cm/uS
+#define SOUND_VELOCITY 0.034
 
 
-This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.
+long duration;
+float distanceCm;
 
-[click here to return to the table of contents](#table-of-contents)
-![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
+const int trigPin = 12;
+const int echoPin = 14;
 
-### Sensor
-Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. Propose device for this project are:
-
-| Devices | Function |
-| ------- | ---------------|
-| NodeMCU ESP8266 | Control, process and transmit data to web framework using HTTP data transmission |
-| Soil Moisture Sensor | To check moisture level of soil |
-| LDR Sensor Module | To detect change of light intensity with light dependent resistor |
-| CD4051B Multiplexer  | Soil moisture and LDR sensor need to share ADC pin via multiplexer since NodeMCU 8266 has only one ADC pinout|
- 
- <details>
-  <summary>Click to show the code for NodeMCU ESP8266</summary>
- 
-```
-
-#include <ESP8266WiFi.h>
-#include <ESP8266HTTPClient.h>
-#include <WiFiClient.h>
-
-// setup I/O sensor nodemcu---------------------------------
-#define sensorpin A0
-#define modepin 10
-// WiFi detail----------------------------------------------
-const char* ssid = "insert SSID";
-const char* password = "insert password";
-String serverName =  "http://api.circuits.my/request.php";
-// global variable------------------------------------------
-float mp = 0;       //moisture percentage
-float li = 0;       //light intensity
-int sensormode = 0; //swap sensor
-// setup wifi port - http-----------------------------------
-WiFiServer server(80);
-//----------------------------------------------------------
-
-void wificlient(){
-  WiFiClient client;
-  HTTPClient http;
-  String api_key = "Put your API key";
-  String device_id = "Put your device ID";
-  String httpData = serverName + "?api=" + api_key + "&id=" + device_id + "&mp=" + String(mp) + "&li=" + String(li);
-  http.begin(client, httpData); //Specify the URL
-  int httpResponseCode = http.GET(); //Make the request
-  if (httpResponseCode > 0) { //Check for the returning code
-    String payload = http.getString();
-    Serial.println(httpResponseCode);
-    Serial.println(payload);
-  }
-  else {
-    Serial.print("Error Code: ");
-    Serial.println(httpResponseCode);
-  }
-  http.end(); //Free the resources
+void setup() {
+  Serial.begin(115200); // Starts the serial communication
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
 }
 
-void setup(){
-  Serial.begin(115200);
-  // Setup pinmode-----------------------------
-  pinMode(sensorpin, INPUT);
-  pinMode(modepin, OUTPUT);
-  // Connect to WiFi network-------------------
-  Serial.println();
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
-  // Start the server-------------------------
-  server.begin();
-  Serial.println("Server started");
-  // Print the IP address---------------------
-  Serial.print("Network IP Address: ");
-  Serial.print("http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/");
-  //------------------------------------------
-}
+void loop() {
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculate the distance
+  distanceCm = (duration * SOUND_VELOCITY/2)-1;
+  
+  // Prints the distance on the Serial Monitor
+  Serial.print("Distance (cm): ");
+  Serial.println(distanceCm);
 
-void loop(){
-  // read soil moisture sensor input---------------------------------------------
-  digitalWrite(sensormode, LOW);
-  mp = ( 100.00 - ( (analogRead(sensorpin)/1023.00) * 100.00 ) );
-  Serial.print("Soil Moisture (%) = "); Serial.print(mp); Serial.println("%");
-  delay(200);
-  // read ldr sensor input-------------------------------------------------------
-  digitalWrite(sensormode, HIGH);
-  li = (analogRead(sensorpin)/1023.00) * 100.00 ;
-  Serial.print("Light Intensity (%) = "); Serial.print(li); Serial.println("%");
-  delay(200);
-  // check WiFi connection-------------------------------------------------------
-  if(WiFi.status() == WL_CONNECTED) wificlient();
-  else Serial.println("WiFi Disconnected");
-  delay(600);
-  //-----------------------------------------------------------------------------
+  delay(1000);
 }
-
-```
+  ```
 </details>
 
- [click here to return to the table of contents](#table-of-contents)
- 
- ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.png)
- ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png)
 
 ### Cloud Platform
-This [video](https://www.google.com/) and [links](http://mohdafiqazizi.pythonanywhere.com/) shows the result of integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/).
 
-[click here to return to the table of contents](#table-of-contents)
-
+The following [video](https://youtu.be/mI5fn9AS04o) shows the process on how to deploy an application using Heroku. This is the [link](https://iot-waste-v2.herokuapp.com/) to the website in the video.
+ 
 ### Dashboard
-The prototype dashboard will developed using Grafana Web Application. The dashboard mainly focus on **Graphical-User-Interface (GUI)** approach consist element of:
-- icon - small picture represent sub-application
-- cursor - as interactive between GUI element
-- menu - information or data group together and placed at visible place
 
-[click here to return to the table of contents](#table-of-contents)
- 
-![Dashboard](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard.png)
+<p align="center">
 
+<img src="Images/login page.png" >
+<img src="Images/dash.png" >
+
+
+</p>
+
+
+## MILESTONE 3
+
+The following [video](https://youtu.be/7Tu39UT9mWg) shows the process on how we send data from our device to our web server using http protocol. This is the [link](https://sampah-app.herokuapp.com/) to the our web server hosted by Heroku as shown in the video.
+
+## MILESTONE 4
+
+The following [video](https://youtu.be/742bh3Lgsps) shows the process on how we save the data from our IoT device to a dashboard and visualize the data on a dashboard. The database that we used for our porject is PostgreSQL due to its simplicity to deploy with  heroku. Grafana was used for the visualization of the data in the database as shown in the video. 
+
+## MILESTONE 5
+
+The following [video](https://youtu.be/rmHrgsxgMzo) shows the explanation in detail about milestone 5 which is the UI Improvement. The layout of the improve UI has being change slightly appopriate to the comments of the app user. The changes includes a time-series graph and more sophisicated real-time data refresh. The user comments are as below:
+
+- app too simple and bland
+- need to know specific time the rubbish can is full
+- the app keeps refreshing making it too buggy
+
+## Steps on clonning the project
+
+1. Git clone the repository to your desired location in your local machine.
+2. Open the cloned repo with any IDE (e.g. VS Code) or can use terminal but make sure the cloned file is in the same path you are in at the moment.
+3. Execute the codes below for making a new virtual environment and install all the required dependecies. 
+
+ ```
+  pipenv shell
+  pipenv install requirements.txt
+```
+4. After done execute the above lines inside the terminal, the application are ready to be deploy with Heroku. Before deploy, you can test with your local machine.
+5. Before testing with local machine, make sure to install PostgreSQL in local machine which can be found in this [link](https://www.postgresqltutorial.com/install-postgresql-linux/)
+
+6. Once done installing, need to change [Your Password] and [database name] as shown in figure below based on your own credentials. 
+<img src="Images/edit1.png" >
+
+7. After done changing it accordingly, you can now test the application with your IoT device with the line below.
+
+```
+  python main.py
+
+  or
+
+  flask run
+```
+<strong>Arduino code for the Project</strong>
+
+<details>
+  <summary>Please Click Me</summary>
+
+  ```
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <string>
+
+const int trigPin = 14;
+const int echoPin = 12;
+uint8 capLevel;
+int tank_h =50;
+
+//define sound velocity in cm/uS
+#define SOUND_VELOCITY 0.034
+
+
+long duration;
+float distanceCm;
+
+const char* ssid = "wifi name";
+const char* password = "wifi password";
  
+void setup_wifi() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    delay(1000);
+    Serial.println("Connecting...");
+  }
+ 
+  Serial.println("Connected successfully.");
+}
+
+void setup() {
+  Serial.begin(115200); // Starts the serial communication
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+  setup_wifi();
+}
+
+void loop() {
+  // Clears the trigPin
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigPin on HIGH state for 10 micro seconds
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  
+  // Reads the echoPin, returns the sound wave travel time in microseconds
+  duration = pulseIn(echoPin, HIGH);
+  
+  // Calculate the distance
+  distanceCm = duration * SOUND_VELOCITY/2;
+  capLevel = 100 - round((distanceCm/tank_h)*100);
+
+  
+  // Prints the distance on the Serial Monitor
+  Serial.print("Capacity: ");
+  Serial.print(capLevel);
+  Serial.println("%");
+
+  if (WiFi.status() != WL_CONNECTED) {
+    setup_wifi();
+  } else {
+    //WiFiClient client;
+    HTTPClient http;
+ 
+    http.begin("http://smart-sampah.herokuapp.com/log_Data"); ///change accordingly either heroku or localhost
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    String requestData = "capacity=" + String(capLevel) + "&count=" + String(true);
+    int httpCode = http.POST(requestData); //Send the request
+    String payload = http.getString(); //Get the response payload
+    Serial.println(httpCode); //Print HTTP return code
+    http.end(); //Close connection
+  }
+  
+  delay(10000);
+}
+  ```
+</details>
+
+8. To deploy the app with heroku, need to run the codes below first inside terminal until you get the database URI hosted by Heroku.
+
+```
+  sudo snap install --classic heroku
+  git init
+  heroku login
+  heroku create smart-sampah
+  heroku addons:create heroku-postgresql:hobby-dev --app smart-sampah
+  heroku config --app smart-sampah
+```
+9. Once got the database URI, copy it and change the database URI in main.py and don't forget to change ENV from dev to prod. 
+
+10. After that run few codes below to deploy the app
+```
+  git add .
+  git commit -m 'Inital Deploy'
+  heroku git:remote -a smart-sampah
+  git push heroku master
+```
