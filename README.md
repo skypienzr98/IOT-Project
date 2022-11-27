@@ -1,6 +1,6 @@
 # IoT-Project
 
-## Stage 2: IoT Agriculture Monitoring System
+## Stage 2: IoT Student Counting System
 
 ### Problem Statement
 
