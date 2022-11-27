@@ -49,7 +49,7 @@ This sensor are not only can detect the presence of object that it is pointed to
 
 The following [video](https://youtu.be/W6meRlzatVE) shows the process on how to deploy our Django application using PythonAnywhere. This is the [link](http://skypienzr98.pythonanywhere.com/) to our application website shown in the video.
 
-
+<img width="1108" alt="Screenshot 2022-11-28 at 5 25 46 AM" src="https://user-images.githubusercontent.com/117338905/204160495-332d7b16-9b7d-43a9-add7-8e7ac19a6aa8.png">
  
 ### 5. Dashboard
 
