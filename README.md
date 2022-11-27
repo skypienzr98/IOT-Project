@@ -1,7 +1,7 @@
 # IoTproject
 An IoT project for SKEL 4213 on student counting system using Arduino with KY008 laser diode module to obtain the required data.
 ## IoT Student Counting System 
-### Problem Statement
+### 1. Problem Statement
 
 *Food court in meranti often experiences losses when students go back home during holidays. This can be in the form of inefficient work hours of the general worker(dishwasher & cleaner), or losses when the food in the food court is not bought.* 
 
@@ -9,103 +9,43 @@ An IoT project for SKEL 4213 on student counting system using Arduino with KY008
 
 <strong><ins>Our Solution</ins></strong>
 
-An IoT application to automate the manual checking rubbish bins that is already full or not, and pass the information to a dashboard where users could locate any available bins that are available.
+An IoT application to count how many student coming in to food court and pass the information to a dashboard where users could track crowdedness of specific location.
 
-<strong><ins>Use Case Diagram</ins></strong>
 
-<p align="center">
-<img src="Images/case_diagram.png">
-</p>
-
-### System Architecture
+### 2. System Architecture
 
 <img width="803" alt="Screenshot 2022-11-28 at 4 49 57 AM" src="https://user-images.githubusercontent.com/117338905/204159004-f99f4658-d9a6-40ba-9ae4-6aa7b95e86bd.png">
 
-<strong><ins>Input(Sensors)</ins></strong>
-
+**Input(Sensors)**-
 Laser sensors will read the input and send to controller
 
-<strong><ins>Arduino/NodeMCU (controller)</ins></strong>
-
+**Arduino/NodeMCU (controller)**-
 Controller will receive data from sensor and upload it to the server
 
-<strong><ins>Cloud Platform</ins></strong>
-
+**Cloud Platform**-
 Cloud will process data from the controller, analyze it and store the analyzed data in its memory. Finally, the analyzed data will be sent to the dashboard.
 
-<strong><ins>Dashboard</ins></strong>
-
+**Dashboard**-
 Users could easily monitor the analyzed data in graph, pie chart and power conclusion and developers could review the data collecting process from here.
 
-Below are the general overview of the system architecture for our IoT waste management system. For this project we will be using **ESP 8266** as our microcontroller device and it will be connected to **HC-SR04** ultrasonic sensor to obtain the capacity level of rubbish bins. The device will communicate using **HTTP** data protocol transmission and it will send the data to a **REST-API** implemented in **Flask** before later on hosted by **Heroku** Cloud platform and finally display the data on our simple dashboard app which we will be build using **Figma**. 
+### 3. Sensors
+Showing below are the possible choice of sensors that might be used in this project. These sensors are used to detect the movement of customers that come to the food court. 
 
-<img src="Images/system_arc.png">
+A. <strong><ins>LDR sensor</ins></strong> 
 
-### Hardware
-<strong><ins>ESP 8266</ins></strong>
+Laser sensor usually are combination of laser diode and photoresistor(LDR). This sensor can detect whether an object is blocking the resistors as the laser diode are always pointed towards the the LDR. 
+[KY008 Laser Diode Module + Receiver Sensor For Arduino](https://shopee.com.my/KY008-Laser-Diode-Module-Receiver-Sensor-For-Arduino-i.132528683.2035527098?sp_atk=ea2b0a91-1a0d-4c03-9f15-461c31224bae&xptdk=ea2b0a91-1a0d-4c03-9f15-461c31224bae)
 
-<img src="Images/esp8266.png" width="173" height="308">
+B. <strong><ins>Ultrasonic sensors</ins></strong> 
 
-<strong><ins>HC-SR04</ins></strong>
+This sensor are not only can detect the presence of object that it is pointed to, but it can also detect the distances
+[HC-SR04 Ultrasonic Range Detector Distance Sensor](https://shopee.com.my/HC-SR04-Ultrasonic-Range-Detector-Distance-Sensor-(2cm-400cm)-3mm-Resolution-SR-04-i.126211897.7563296073?sp_atk=084eace9-96d5-4719-a3e6-798fbe7af4df&xptdk=084eace9-96d5-4719-a3e6-798fbe7af4df) 
 
-<img src="Images/hc_sr04.jpg" width="256" height="197">
-
-<strong><ins>Circuit Diagram</ins></strong>
-
-<img src="https://i0.wp.com/randomnerdtutorials.com/wp-content/uploads/2021/06/ESP8266-Ultrasonic-Sensor-Wiring-Fritzing-Diagram.png?w=738&quality=100&strip=all&ssl=1" width="318" height="258">
-
-<strong>Code Sample</strong>
-
-<details>
-  <summary>Please Click Me</summary>
-
-  ```
-//define sound velocity in cm/uS
-#define SOUND_VELOCITY 0.034
-
-
-long duration;
-float distanceCm;
-
-const int trigPin = 12;
-const int echoPin = 14;
-
-void setup() {
-  Serial.begin(115200); // Starts the serial communication
-  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
-  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
-}
-
-void loop() {
-  // Clears the trigPin
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
-  // Sets the trigPin on HIGH state for 10 micro seconds
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  
-  // Reads the echoPin, returns the sound wave travel time in microseconds
-  duration = pulseIn(echoPin, HIGH);
-  
-  // Calculate the distance
-  distanceCm = (duration * SOUND_VELOCITY/2)-1;
-  
-  // Prints the distance on the Serial Monitor
-  Serial.print("Distance (cm): ");
-  Serial.println(distanceCm);
-
-  delay(1000);
-}
-  ```
-</details>
-
-
-### Cloud Platform
+### 4. Cloud Platform
 
 The following [video](https://youtu.be/W6meRlzatVE) shows the process on how to deploy our Django application using PythonAnywhere. This is the [link](http://skypienzr98.pythonanywhere.com/) to our application website shown in the video.
  
-### Dashboard
+### 5. Dashboard
 
 <img width="949" alt="Screenshot 2022-11-28 at 4 43 24 AM" src="https://user-images.githubusercontent.com/117338905/204158752-4d1dd1b6-ae96-45b0-b55f-386d103a1c0f.png">
 
