@@ -21,6 +21,22 @@ An IoT application to automate the manual checking rubbish bins that is already 
 
 <img width="803" alt="Screenshot 2022-11-28 at 4 49 57 AM" src="https://user-images.githubusercontent.com/117338905/204159004-f99f4658-d9a6-40ba-9ae4-6aa7b95e86bd.png">
 
+<strong><ins>Input(Sensors)</ins></strong>
+
+Laser sensors will read the input and send to controller
+
+<strong><ins>Arduino/NodeMCU (controller)</ins></strong>
+
+Controller will receive data from sensor and upload it to the server
+
+<strong><ins>Cloud Platform</ins></strong>
+
+Cloud will process data from the controller, analyze it and store the analyzed data in its memory. Finally, the analyzed data will be sent to the dashboard.
+
+<strong><ins>Dashboard</ins></strong>
+
+Users could easily monitor the analyzed data in graph, pie chart and power conclusion and developers could review the data collecting process from here.
+
 Below are the general overview of the system architecture for our IoT waste management system. For this project we will be using **ESP 8266** as our microcontroller device and it will be connected to **HC-SR04** ultrasonic sensor to obtain the capacity level of rubbish bins. The device will communicate using **HTTP** data protocol transmission and it will send the data to a **REST-API** implemented in **Flask** before later on hosted by **Heroku** Cloud platform and finally display the data on our simple dashboard app which we will be build using **Figma**. 
 
 <img src="Images/system_arc.png">
