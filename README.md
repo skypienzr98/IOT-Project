@@ -1,6 +1,6 @@
 # IoTproject
-An IoT project for SKEL 4213 on waste management system using ESP 8266 with HC-SR04 ultrasonic sensor to obtain the required data.
-## IoT Waste Management System 🗑️ 
+An IoT project for SKEL 4213 on student counting system using Arduino with KY008 laser diode module to obtain the required data.
+## IoT Student Counting System 
 ### Problem Statement
 
 *Food court in meranti often experiences losses when students go back home during holidays. This can be in the form of inefficient work hours of the general worker(dishwasher & cleaner), or losses when the food in the food court is not bought.* 
@@ -18,6 +18,8 @@ An IoT application to automate the manual checking rubbish bins that is already 
 </p>
 
 ### System Architecture
+
+<img width="803" alt="Screenshot 2022-11-28 at 4 49 57 AM" src="https://user-images.githubusercontent.com/117338905/204159004-f99f4658-d9a6-40ba-9ae4-6aa7b95e86bd.png">
 
 Below are the general overview of the system architecture for our IoT waste management system. For this project we will be using **ESP 8266** as our microcontroller device and it will be connected to **HC-SR04** ultrasonic sensor to obtain the capacity level of rubbish bins. The device will communicate using **HTTP** data protocol transmission and it will send the data to a **REST-API** implemented in **Flask** before later on hosted by **Heroku** Cloud platform and finally display the data on our simple dashboard app which we will be build using **Figma**. 
 
