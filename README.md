@@ -8,23 +8,6 @@ Food court in meranti often experiences losses when students go back home during
 
 To combat this, Firefoxes come up with the idea of counting the number of students that went to the meranti food court and store it in the cloud to be further analysed. The number, time, date and frequency is stored so that Meranti’s management can plan food distribution and staff work hours. This could also help in the planning of renovation/maintenance of the food court when it is necessary, as we know, the daytime maintenance should be performed only when the number of customers are minimal. 
 
-
-![Use case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v2.jpg)
-
-#### Use Case Description - Report and Notify Plant Condition
-
-[click here to return to the table of contents](#table-of-contents)
-
-| Elements | Description |
-| ------- | ---------------|
-| System | Farms or nursery |
-| Use Case | Report and notify plant condition |
-| Actors | Farms or nursery, Farmers |
-| Data | Farms or nursery sends summary of collected data from the sensors such as soil humidity and acidity |
-| Stimulus | Farms (Sensor location) establish communication link with the user to send and update requested data |
-| Response | The summarized data are sent and displayed to the user for data analysis and user may take action accordingly based on the analyzed data |
-| Comments | The plant's conditions need to be monitored every day. |
-
 ### System Architecture
 
 ## Input(Sensors)
