@@ -27,13 +27,13 @@ To combat this, Firefoxes come up with the idea of counting the number of studen
 
 ### System Architecture
 
-##Input(Sensors)
+## Input(Sensors)
 Laser sensors will read the input and send to controller
-##Arduino/NodeMCU (controller)
+## Arduino/NodeMCU (controller)
 Controller will receive data from sensor and upload it to the server
-##Cloud Platform
+## Cloud Platform
 Cloud will process data from the controller, analyze it and store the analyzed data in its memory. Finally, the analyzed data will be sent to the dashboard.
-##Dashboard
+## Dashboard
 Users could easily monitor the analyzed data in graph, pie chart and power conclusion and developers could review the data collecting process from here.
 
 
