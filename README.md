@@ -1,14 +1,5 @@
 # IoT-Project
-A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with Soil Moisture and LDR Sensor Module for data acquisition.
-## Table of Contents
 
-- [Stage 2: IoT Agriculture Monitoring System](#stage-2-iot-agriculture-monitoring-system)
-  * [Problem Statement](#problem-statement)
-    + [Use Case Description - Report and Notify Plant Condition](#use-case-description---report-and-notify-plant-condition)
-  * [System Architecture](#system-architecture)
-  * [Sensor](#sensor)
-  * [Cloud Platform](#cloud-platform)
-  * [Dashboard](#dashboard)
 ## Stage 2: IoT Agriculture Monitoring System
 
 ### Problem Statement
