@@ -83,7 +83,7 @@ void loop() {
 
 ### Cloud Platform
 
-The following [video](https://youtu.be/mI5fn9AS04o) shows the process on how to deploy an application using Heroku. This is the [link](https://iot-waste-v2.herokuapp.com/) to the website in the video.
+The following [video](https://youtu.be/W6meRlzatVE) shows the process on how to deploy our Django application using PythonAnywhere. This is the [link](http://skypienzr98.pythonanywhere.com/) to our application website shown in the video.
  
 ### Dashboard
 
