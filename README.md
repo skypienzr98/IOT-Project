@@ -43,6 +43,8 @@ B. <strong><ins>Ultrasonic sensors</ins></strong>
 This sensor are not only can detect the presence of object that it is pointed to, but it can also detect the distances
 [HC-SR04 Ultrasonic Range Detector Distance Sensor](https://shopee.com.my/HC-SR04-Ultrasonic-Range-Detector-Distance-Sensor-(2cm-400cm)-3mm-Resolution-SR-04-i.126211897.7563296073?sp_atk=084eace9-96d5-4719-a3e6-798fbe7af4df&xptdk=084eace9-96d5-4719-a3e6-798fbe7af4df) 
 
+<img width="202" alt="Screenshot 2022-11-28 at 5 20 05 AM" src="https://user-images.githubusercontent.com/117338905/204160239-3fecaedb-3210-4174-ade0-ae12f5275574.png">
+
 ### 4. Cloud Platform
 
 The following [video](https://youtu.be/W6meRlzatVE) shows the process on how to deploy our Django application using PythonAnywhere. This is the [link](http://skypienzr98.pythonanywhere.com/) to our application website shown in the video.
