@@ -9,8 +9,6 @@ Food court in meranti often experiences losses when students go back home during
 To combat this, Firefoxes come up with the idea of counting the number of students that went to the meranti food court and store it in the cloud to be further analysed. The number, time, date and frequency is stored so that Meranti’s management can plan food distribution and staff work hours. This could also help in the planning of renovation/maintenance of the food court when it is necessary, as we know, the daytime maintenance should be performed only when the number of customers are minimal. 
 
 
-[click here to return to the table of contents](#table-of-contents)
-
 ![Use case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v2.jpg)
 
 #### Use Case Description - Report and Notify Plant Condition
