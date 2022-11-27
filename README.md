@@ -87,11 +87,7 @@ The following [video](https://youtu.be/W6meRlzatVE) shows the process on how to 
  
 ### Dashboard
 
-<p align="center">
-
-<img src="Images/login page.png" >
-<img src="Images/dash.png" >
+<img width="949" alt="Screenshot 2022-11-28 at 4 43 24 AM" src="https://user-images.githubusercontent.com/117338905/204158752-4d1dd1b6-ae96-45b0-b55f-386d103a1c0f.png">
 
 
-</p>
 
